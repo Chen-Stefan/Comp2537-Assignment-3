@@ -1,0 +1,136 @@
+html, body{
+    height: 100%;
+}
+
+
+body{
+    margin: 0px 10px;
+    padding: 0px;
+    background: #FFFFFF;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12pt;
+}
+
+header{
+	
+	overflow: hidden;
+}
+
+#top-header{
+		
+	text-align: center;
+	height: 60px;
+}
+
+#logo{
+	float: left;          
+	margin: none;
+	height: 60px;
+	width: 60px;
+}
+
+#logo img{
+	width: 60%;
+	float: left;
+	padding: 10px 0px;
+}
+
+#menu{
+	float: right;
+	width: 70%;
+	height: 100%;
+	margin: none;
+}
+	
+#menu ul{
+	text-align: center;
+	float: right;
+	margin: none;
+}
+	
+#menu li{
+	display: inline-block;
+	padding: none;
+	margin: none;
+}
+	
+#menu li a, #menu li span{
+	display: inline-block;
+	padding: 0em 1.5em;
+	text-decoration: none;
+	font-weight: 600;
+	text-transform: uppercase;
+	line-height: 60px;
+}
+	
+#menu li a{
+		
+	color: #0074D9;
+}
+	
+#menu li:hover a, #menu li span{
+	background: #0074D9;
+	color: white;
+	border-left: 1px solid whitesmoke;
+	text-decoration: none;
+}
+
+h1, h2, h3{
+    margin: 0;
+    padding: 0;
+    color: #404040;
+}
+     
+p, ol, ul{
+    margin-top: 0;
+}
+ 
+p {
+    line-height: 180%;
+}
+ 
+ol, ul{
+    padding: 0;
+    list-style: none;
+}
+
+#text {
+    text-align: center;
+}
+
+#container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	margin: 0 3%;
+	text-align: center;
+}
+
+.filter {
+	flex: 30%
+}
+
+/* .picture {                
+	display: flex;
+	flex-wrap: wrap;
+	flex-basis: 30%;
+} */
+
+footer {
+
+    text-align: center;
+    padding: 20px;
+    clear: both;
+}
+
+#logo_container {
+    overflow: hidden;
+
+}
+
+@media only screen and (max-width: 576px) {
+	ul li{
+		float: left;
+		width: 100%;
+	}
+  }

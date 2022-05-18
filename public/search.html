@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Pokemon</title>
+    <link rel="stylesheet" href="./styles/search.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="search.js"></script>
+</head>
+
+<body>
+    <header>
+        <div id="top-header">
+
+            <div id="logo">
+                <a href="index.html"><img src="./icons/icon.webp"/></a>
+            </div>
+
+            <nav>
+                <div id="menu">
+                    <ul>
+                        <li class="active"><a href="index.html">Home</a></li>
+                        <li><a href="search.html">Search & Filter</a></li>
+                        <li><a href="timeline.html">Search Timeline</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <div id='text'>
+        <p>Feel free to filter pokemons by their type or region using the dropdown. You can also search by name using
+            the search bar. </p>
+    </div>
+    <div id="container">
+        <div class="filter">
+            Type
+            <select name="pokemon-type" id="pokemon-type">
+                <option value="normal">normal</option>
+                <option value="fighting">fighting</option>
+                <option value="flying">flying</option>
+                <option value="poison">poison</option>
+                <option value="ground">ground</option>
+                <option value="rock">rock</option>
+                <option value="bug">bug</option>
+                <option value="ghost">ghost</option>
+                <option value="steel">steel</option>
+                <option value="fire">fire</option>
+                <option value="water">water</option>
+                <option value="grass">grass</option>
+                <option value="electric">electric</option>
+                <option value="psychic">psychic</option>
+                <option value="ice">ice</option>
+                <option value="dragon">dragon</option>
+                <option value="dark">dark</option>
+                <option value="fairy">fairy</option>
+            </select>
+        </div>
+        <div class="filter">
+            Region
+            <select name="pokemon-region" id="pokemon-region">
+                <option value="kanto">Kanto (1-151)</option>
+                <option value="johto">Johto (152-251)</option>
+                <option value="hoenn">Hoenn (252-386)</option>
+                <option value="sinnoh">Sinnoh (387-494)</option>
+                <option value="unova">Unova (495-649)</option>
+                <option value="kalos">Kalos (650-721)</option>
+                <option value="alola">Alola (722-809)</option>
+                <option value="galar">Galar (810-898)</option>
+            </select>
+        </div>
+        <div class="filter">Search by Name
+            <input type="text" id="name-input">
+            <button id="search-btn">Search</button>
+        </div>
+    </div>
+    <main>
+        <div id="left-col">
+
+        </div>
+    </main>
+    <footer>
+        <h4>Copyright &copy; Stefan's Pokemon Index 2022</h4>
+        <div id="logo_container">
+            <img src="./icons/twitter.png" alt="twitter" width="50px" height="50px">
+            <img src="./icons/facebook.png" alt="facebook" width="50px" height="50px">
+            <img src="./icons/instagram.png" alt="instagram" width="50px" height="50px">
+        </div>
+    </footer>
+</body>
+
+</html>

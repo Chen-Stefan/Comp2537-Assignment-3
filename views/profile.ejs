@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Profile</title>
+</head>
+    <body>
+    <div style="text-align: center;">
+      <h2><%= name %></h2>
+      <h2>ID: <%= id %></h2>
+    </div> 
+    <div style="display: flex; justify-content: center; font-size: large;">
+      <img src= "<%= image %>" width="35%" alt="">
+    </div>
+    <div style="display: flex; justify-content: center; font-size: large;">
+        <br>
+        HP: <%= hp %>
+        <progress id="file" value = "<%= hp %>" max="255"> <%= hp %> </progress> 
+        <br>
+        Attack: <%= attack %>
+        <progress id="file" value = "<%= attack %>" max="255"> <%= attack %> </progress>
+        <br>
+        Defense: <%= defense %>
+        <progress id="file" value = "<%= defense %>" max="255"> <%= defense %> </progress>
+        <br>
+        Special Attack: <%= spAttack %>
+        <progress id="file" value = "<%= spAttack %>" max="255"> <%= spAttack %> </progress>
+        <br>
+        Special Defense: <%= spDefense %>
+        <progress id="file" value = "<%= spDefense %>" max="255"> <%= spDefense %> </progress>
+        <br>
+        Speed: <%= speed %>
+        <progress id="file" value = "<%= speed %>" max="255"> <%= speed %> </progress>
+    </div>
+</body>
+</html>

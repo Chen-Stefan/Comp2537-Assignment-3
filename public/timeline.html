@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Timeline</title>
+    <link rel="stylesheet" href="./styles/timeline.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+    integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="timeline.js"></script>
+</head>
+<body>
+    <header>
+        <div id="top-header">
+
+            <div id="logo">
+                <a href="index.html"><img src="./icons/icon.webp"/></a>
+            </div>
+
+            <nav>
+                <div id="menu">
+                    <ul>
+                        <li class="active"><a href="index.html">Home</a></li>
+                        <li><a href="search.html">Search & Filter</a></li>
+                        <li><a href="timeline.html">Search Timeline</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <h2 id='text'>
+        Welcome to the global search & filter timeline!
+    </h2>
+
+    <main>
+        <button id="clear-btn">Clear All</button>
+        <div id="container">
+            <div class= "filter" id="filter-type">
+                <h2>Type</h2>
+            </div>
+            <div class= "filter" id="filter-region">
+                <h2>Region</h2>
+            </div>
+            <div class= "filter" id="search-name">
+                <h2>Name</h2>
+            </div>
+
+        </div>
+    </main>
+</body>
+</html>
