@@ -14,12 +14,16 @@ let formatted = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds()
 // filter by type
 function createSingleTypePokemon(data_t) {
     let pokemonID = data_t.id;
-    let singlePokemonCard = 
-        ` ${pokemonName}<div class="picture"> 
-            <a href="http://localhost:5000/profile/${pokemonID}">
-            <img src="${data_t.sprites.other["official-artwork"].front_default}">
-            </a> </div>`; 
-    $("#left-col").append(singlePokemonCard);
+    if (pokemonID > 898) {
+        return
+    } else {
+        let singlePokemonCard = 
+            ` ${pokemonName}<div class="picture"> 
+                <a href="http://localhost:5000/profile/${pokemonID}">
+                <img src="${data_t.sprites.other["official-artwork"].front_default}">
+                </a> </div>`; 
+        $("#left-col").append(singlePokemonCard);
+    }
 }
 
 async function processPokemonByType(data) {
