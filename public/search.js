@@ -18,7 +18,7 @@ function createSingleTypePokemon(data_t) {
         let pokemonName = data_t[i].name;
         let singlePokemonCard = 
         ` ${pokemonName}<div class="picture"> 
-    <a href="https://frozen-plains-44646.herokuapp.com/profile/${pokemonID}">
+    <a href="https://localhost:5000/profile/${pokemonID}">
     <img src="${data_t[i].image}">
     </a> </div>`; 
         $("#left-col").append(singlePokemonCard);
@@ -30,7 +30,7 @@ function displaySpecificType(pokemonType) {
     currentType = pokemonType;
     $.ajax({
         type: "GET",
-        url: `https://frozen-plains-44646.herokuapp.com/pokemons/${currentType}`,
+        url: `https://localhost:5000/pokemons/${currentType}`,
         success: createSingleTypePokemon
     })
 }
@@ -42,7 +42,7 @@ function createSingleRegionPokemon(data_r) {
         let singleRegionPokemonName = data_r[i].name;
         let singlePokemonCard = 
         ` ${singleRegionPokemonName}<div class="picture"> 
-    <a href="https://frozen-plains-44646.herokuapp.com/profile/${pokemonID}">
+    <a href="https://localhost:5000/profile/${pokemonID}">
     <img src="${data_r[i].image}">
     </a> </div>`; 
         $("#left-col").append(singlePokemonCard);
@@ -54,7 +54,7 @@ function displaySpecificRegion(pokemonRegion) {
     currentRegion = pokemonRegion;
         $.ajax({
             type: "GET",
-            url: `https://frozen-plains-44646.herokuapp.com/filter/${currentRegion}`,
+            url: `https://localhost:5000/filter/${currentRegion}`,
             success: createSingleRegionPokemon
         })
 }
@@ -65,7 +65,7 @@ function displaySearchResult(data_n) {
     let pokemonID = data_n[0].id;
     let singlePokemonCard = 
     ` ${nameInput}<div class="picture"> 
-    <a href="https://frozen-plains-44646.herokuapp.com/profile/${pokemonID}">
+    <a href="https://localhost:5000/profile/${pokemonID}">
     <img src="${data_n[0].image}">
     </a> </div>`; 
     $("#left-col").append(singlePokemonCard);
@@ -78,7 +78,7 @@ async function searchPokemonByName() {
     }
     await $.ajax({
         type: "GET",
-        url: `https://frozen-plains-44646.herokuapp.com/search/${nameInput}`,
+        url: `https://localhost:5000/search/${nameInput}`,
         success: displaySearchResult
     });
     addNewNameTimelineEvent(nameInput);
@@ -90,7 +90,7 @@ function addNewTypeTimelineEvent(pokemonType) {
         typehitObject[`${pokemonType}`] = 1;
         $.ajax({
             type: "PUT",
-            url: "https://frozen-plains-44646.herokuapp.com/timeline/insert",
+            url: "https://localhost:5000/timeline/insert",
             data: {
                 text: `User searched for pokemon type: ${pokemonType}`,
                 hits: 1,
@@ -104,7 +104,7 @@ function addNewTypeTimelineEvent(pokemonType) {
     }else{
         $.ajax({
             type: "PUT",
-            url: "https://frozen-plains-44646.herokuapp.com/timeline/insert",
+            url: "https://localhost:5000/timeline/insert",
             data: {
                 text: `User searched for pokemon type: ${pokemonType}`,
                 hits: typehitObject[`${pokemonType}`],
@@ -115,7 +115,7 @@ function addNewTypeTimelineEvent(pokemonType) {
                 let id = res._id;
                 $.ajax({
                     type: "GET",
-                    url: `https://frozen-plains-44646.herokuapp.com/timeline/incrementHits/${id}`,
+                    url: `https://localhost:5000/timeline/incrementHits/${id}`,
                     success: (res) => {typehitObject[`${pokemonType}`] ++;}
                 })
             }
@@ -127,7 +127,7 @@ function addNewRegionTimelineEvent(currentRegion) {
     if (!(currentRegion in regionidObject)) {
         $.ajax({
             type: "PUT",
-            url: "https://frozen-plains-44646.herokuapp.com/timeline/insert",
+            url: "https://localhost:5000/timeline/insert",
             data: {
                 text: `User searched for pokemon region: ${currentRegion}`,
                 hits: 1,
@@ -142,7 +142,7 @@ function addNewRegionTimelineEvent(currentRegion) {
         let id = regionidObject[`${currentRegion}`];
         $.ajax({
             type: "GET",
-            url: `https://frozen-plains-44646.herokuapp.com/timeline/incrementHits/${id}`,
+            url: `https://localhost:5000/timeline/incrementHits/${id}`,
             success: (res) => {console.log(res)}
         })
     }
@@ -152,7 +152,7 @@ function addNewNameTimelineEvent(nameInput) {
     if (!(nameInput in nameidObject)) {
         $.ajax({
             type: "PUT",
-            url: "https://frozen-plains-44646.herokuapp.com/timeline/insert",
+            url: "https://localhost:5000/timeline/insert",
             data: {
                 text: `User searched for pokemon name: ${nameInput}`,
                 hits: 1,
@@ -167,7 +167,7 @@ function addNewNameTimelineEvent(nameInput) {
         let id = nameidObject[`${nameInput}`];
         $.ajax({
             type: "GET",
-            url: `https://frozen-plains-44646.herokuapp.com/timeline/incrementHits/${id}`,
+            url: `https://localhost:5000/timeline/incrementHits/${id}`,
             success: (res) => {console.log(res)}
         })
     }

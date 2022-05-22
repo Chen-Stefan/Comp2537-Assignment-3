@@ -1,20 +1,18 @@
 let image_grid = ""; 
-let indexArray = [];
 
 function grabPokemonImage(data) {
-  console.log(data);
-  let pokemonName = data[indexArray[i - 1]].name.charAt(0).toUpperCase() + data[indexArray[i - 1]].name.slice(1);
+  let pokemonName = data.name.charAt(0).toUpperCase() + data.name.slice(1);
   image_grid += ` ${pokemonName}<div class="picture"> 
-  <a href="/profile/${data[indexArray[i - 1]].id}">
-  <img src="${data[indexArray[i - 1]].image}">
+  <a href="/profile/${data.id}">
+  <img src="${data.sprites.other["official-artwork"].front_default}">
   </a> </div>`;
   
 }
 
 async function loadRandomPokemons() {
-  // generate 9 unique random number between 1 and total count
+  let indexArray = [];
   while (indexArray.length < 9) {
-    let randomIndex = Math.floor(Math.random() * 14);
+    let randomIndex = Math.floor(Math.random() * 898) + 1;
     if (indexArray.indexOf(randomIndex) === -1) indexArray.push(randomIndex);
   }
   for (i = 1; i <= 9; i++) {
@@ -23,8 +21,8 @@ async function loadRandomPokemons() {
     }
     await $.ajax({
       type: "GET",
-      url: "https://frozen-plains-44646.herokuapp.com/pokemons",
-      "success": grabPokemonImage 
+      url: `https://pokeapi.co/api/v2/pokemon/${indexArray[i - 1]}`,
+      success: grabPokemonImage 
     });
 
     if (i % 3 == 0) {
