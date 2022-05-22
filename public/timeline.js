@@ -1,8 +1,7 @@
 function loadAllTimelines() {
-  // it's not a type POST, so in the ajax object do not need a "Data" property
   $.ajax({
     type: "GET",
-    url: "https://localhost:5000/timeline/getAllEvents",
+    url: "http://localhost:5000/timeline/getAllEvents",
     success: (res) => {
       for (i = 0; i < res.length; i++) {
         let singleEvent = ` <div><p> ${res[i].text} </p>
@@ -27,7 +26,7 @@ function deleteSingleTimelineEvent() {
     let eventID = this.id
     $.ajax({
         type: "GET",
-        url: `https://localhost:5000/timeline/delete/${eventID}`,
+        url: `http://localhost:5000/timeline/delete/${eventID}`,
         success: (res) => {console.log(res)}
     })
 }
@@ -36,10 +35,11 @@ function clearAllTimelineEvents() {
     $("#container").empty();
     $.ajax({
         type: "GET",
-        url: `https://localhost:5000/timeline/deleteAllEvents`,
+        url: `http://localhost:5000/timeline/deleteAllEvents`,
         success: (res) => {console.log(res)}
     })  
 }
+
 
 function setup() {
   loadAllTimelines();

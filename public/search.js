@@ -13,61 +13,85 @@ let formatted = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds()
 
 // filter by type
 function createSingleTypePokemon(data_t) {
-    for(i = 0; i < data_t.length; i++) {
-        let pokemonID = data_t[i].id;
-        let pokemonName = data_t[i].name;
-        let singlePokemonCard = 
+    let pokemonID = data_t.id;
+    let singlePokemonCard = 
         ` ${pokemonName}<div class="picture"> 
-    <a href="https://localhost:5000/profile/${pokemonID}">
-    <img src="${data_t[i].image}">
-    </a> </div>`; 
-        $("#left-col").append(singlePokemonCard);
-    }
+            <a href="http://localhost:5000/profile/${pokemonID}">
+            <img src="${data_t.sprites.other["official-artwork"].front_default}">
+            </a> </div>`; 
+    $("#left-col").append(singlePokemonCard);
+}
+
+async function processPokemonByType(data) {
+    let pokemonArray = data.pokemon;
+    for(i = 0; i < pokemonArray.length; i++) {
+        pokemonName = pokemonArray[i].pokemon.name;
+        await $.ajax({
+            type:"GET",
+            url: `https://pokeapi.co/api/v2/pokemon/${pokemonName}`,
+            success: createSingleTypePokemon
+        })
+    }  
 }
 
 function displaySpecificType(pokemonType) {
     $("#left-col").empty();
+    let allTypes = ["normal", "fighting", "flying", "poison", "ground", "rock", "bug", "ghost", "steel", "fire", "water", "grass", "electric", "psychic",  "ice", "dragon", "dark", "fairy"];
     currentType = pokemonType;
+    typeID = allTypes.indexOf(currentType) + 1
     $.ajax({
         type: "GET",
-        url: `https://localhost:5000/pokemons/${currentType}`,
-        success: createSingleTypePokemon
+        url: `https://pokeapi.co/api/v2/type/${typeID}`,
+        success: processPokemonByType
     })
 }
 
 // filter by region
 function createSingleRegionPokemon(data_r) {
-    for(i = 0; i < data_r.length; i++) {
-        let pokemonID = data_r[i].id;
-        let singleRegionPokemonName = data_r[i].name;
-        let singlePokemonCard = 
+    let pokemonID = data_r.id;
+    let singleRegionPokemonName = data_r.name;
+    let singlePokemonCard = 
         ` ${singleRegionPokemonName}<div class="picture"> 
-    <a href="https://localhost:5000/profile/${pokemonID}">
-    <img src="${data_r[i].image}">
-    </a> </div>`; 
-        $("#left-col").append(singlePokemonCard);
-    }
+            <a href="http://localhost:5000/profile/${pokemonID}">
+            <img src="${data_r.sprites.other["official-artwork"].front_default}">
+            </a> </div>`; 
+    $("#left-col").append(singlePokemonCard);
 }
 
 function displaySpecificRegion(pokemonRegion) {
     $("#left-col").empty();
+    let regionalID = {
+        "kanto": [1, 151],
+        "johto": [152, 251],
+        "hoenn": [252, 386],
+        "sinnoh": [387, 494],
+        "unova": [495, 649],
+        "kalos": [650, 721],
+        "alola": [722, 809],
+        "galar": [810, 898]
+    }
     currentRegion = pokemonRegion;
+    let startID = regionalID[currentRegion][0];
+    let endID = regionalID[currentRegion][1];
+    for (i = startID; i <= endID; i++) {
         $.ajax({
             type: "GET",
-            url: `https://localhost:5000/filter/${currentRegion}`,
+            url: `https://pokeapi.co/api/v2/pokemon/${i}`,
             success: createSingleRegionPokemon
         })
+    }
+   
 }
 
 // search by name
 function displaySearchResult(data_n) {
     $("#left-col").empty();
-    let pokemonID = data_n[0].id;
+    let pokemonID = data_n.id;
     let singlePokemonCard = 
-    ` ${nameInput}<div class="picture"> 
-    <a href="https://localhost:5000/profile/${pokemonID}">
-    <img src="${data_n[0].image}">
-    </a> </div>`; 
+        ` ${nameInput}<div class="picture"> 
+            <a href="http://localhost:5000/profile/${pokemonID}">
+            <img src="${data_n.sprites.other["official-artwork"].front_default}">
+            </a> </div>`; 
     $("#left-col").append(singlePokemonCard);
 }
 
@@ -78,7 +102,7 @@ async function searchPokemonByName() {
     }
     await $.ajax({
         type: "GET",
-        url: `https://localhost:5000/search/${nameInput}`,
+        url: `https://pokeapi.co/api/v2/pokemon/${nameInput}`,
         success: displaySearchResult
     });
     addNewNameTimelineEvent(nameInput);
@@ -90,7 +114,7 @@ function addNewTypeTimelineEvent(pokemonType) {
         typehitObject[`${pokemonType}`] = 1;
         $.ajax({
             type: "PUT",
-            url: "https://localhost:5000/timeline/insert",
+            url: "http://localhost:5000/timeline/insert",
             data: {
                 text: `User searched for pokemon type: ${pokemonType}`,
                 hits: 1,
@@ -98,13 +122,12 @@ function addNewTypeTimelineEvent(pokemonType) {
             },
             success: (res) => { 
                 console.log(`We have a total of 1 search for type ${pokemonType}`)
-                // console.log(typeArray)
             }
         })
     }else{
         $.ajax({
             type: "PUT",
-            url: "https://localhost:5000/timeline/insert",
+            url: "http://localhost:5000/timeline/insert",
             data: {
                 text: `User searched for pokemon type: ${pokemonType}`,
                 hits: typehitObject[`${pokemonType}`],
@@ -115,7 +138,7 @@ function addNewTypeTimelineEvent(pokemonType) {
                 let id = res._id;
                 $.ajax({
                     type: "GET",
-                    url: `https://localhost:5000/timeline/incrementHits/${id}`,
+                    url: `http://localhost:5000/timeline/incrementHits/${id}`,
                     success: (res) => {typehitObject[`${pokemonType}`] ++;}
                 })
             }
@@ -127,7 +150,7 @@ function addNewRegionTimelineEvent(currentRegion) {
     if (!(currentRegion in regionidObject)) {
         $.ajax({
             type: "PUT",
-            url: "https://localhost:5000/timeline/insert",
+            url: "http://localhost:5000/timeline/insert",
             data: {
                 text: `User searched for pokemon region: ${currentRegion}`,
                 hits: 1,
@@ -142,7 +165,7 @@ function addNewRegionTimelineEvent(currentRegion) {
         let id = regionidObject[`${currentRegion}`];
         $.ajax({
             type: "GET",
-            url: `https://localhost:5000/timeline/incrementHits/${id}`,
+            url: `http://localhost:5000/timeline/incrementHits/${id}`,
             success: (res) => {console.log(res)}
         })
     }
@@ -152,7 +175,7 @@ function addNewNameTimelineEvent(nameInput) {
     if (!(nameInput in nameidObject)) {
         $.ajax({
             type: "PUT",
-            url: "https://localhost:5000/timeline/insert",
+            url: "http://localhost:5000/timeline/insert",
             data: {
                 text: `User searched for pokemon name: ${nameInput}`,
                 hits: 1,
@@ -167,15 +190,13 @@ function addNewNameTimelineEvent(nameInput) {
         let id = nameidObject[`${nameInput}`];
         $.ajax({
             type: "GET",
-            url: `https://localhost:5000/timeline/incrementHits/${id}`,
+            url: `http://localhost:5000/timeline/incrementHits/${id}`,
             success: (res) => {console.log(res)}
         })
     }
 }
 
 function setup() {
-    displaySpecificType($("#pokemon-type option:selected").val());
-
     $("#pokemon-type").change(() => {
         pokemonType = $("#pokemon-type option:selected").val();
         displaySpecificType(pokemonType);
