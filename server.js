@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const dotenv = require("dotenv");
 const timelineRoute = require('./routes/timeline');
 const authRoute = require('./routes/auth');
+const userRoute = require('./routes/user');
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public')); 
@@ -29,6 +30,7 @@ app.listen(process.env.PORT || 5000, function (err) {
 app.use(express.json());
 // app.use('/timeline', timelineRoute);
 app.use('/auth', authRoute);
+app.use('/user', userRoute);
 
 app.get('/timeline/getAllEvents', function(req, res) {
   timelineModel.find({}, function(err, timelineData){
