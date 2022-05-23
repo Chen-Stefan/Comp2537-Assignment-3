@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const User = require('../models/User');
 const CryptoJS = require('crypto-js');
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
 
 // REGISTER            如何查重要想办法弄
 
@@ -31,18 +31,18 @@ router.post('/login', async (req, res) => {
     const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
     originalPassword != req.body.password && res.status(401).json('Password is incorrect, please try again');
 
-    const accessToken = jwt.sign(
-      {
-      id: user._id, 
-      isAdmin:  user.isAdmin
-      },
-      process.env.JWT_SECRET,
-      {expiresIn: '30d'}
-    );
+    // const accessToken = jwt.sign(
+    //   {
+    //   id: user._id, 
+    //   isAdmin:  user.isAdmin
+    //   },
+    //   process.env.JWT_SECRET,
+    //   {expiresIn: '30d'}
+    // );
 
     const {password, ...others} = user._doc;
 
-    res.status(200).json({...others, accessToken});
+    res.status(200).json({...others});
   } catch (err) {
     res.status(500).json(err);
   }
