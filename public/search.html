@@ -17,7 +17,7 @@
         <div id="top-header">
 
             <div id="logo">
-                <a href="index.html"><img src="./icons/icon.webp"/></a>
+                <a href="index.html"><img src="./icons/icon.webp" /></a>
             </div>
 
             <nav>
@@ -32,6 +32,54 @@
             </nav>
         </div>
     </header>
+    
+    <div id='text'>
+        <p>Feel free to filter pokemons by their type or region using the dropdown. You can also search by name using
+            the search bar. </p>
+    </div>
+    <div id="container">
+        <div class="filter">
+            Type
+            <select name="pokemon-type" id="pokemon-type">
+                <option value="normal">normal</option>
+                <option value="fighting">fighting</option>
+                <option value="flying">flying</option>
+                <option value="poison">poison</option>
+                <option value="ground">ground</option>
+                <option value="rock">rock</option>
+                <option value="bug">bug</option>
+                <option value="ghost">ghost</option>
+                <option value="steel">steel</option>
+                <option value="fire">fire</option>
+                <option value="water">water</option>
+                <option value="grass">grass</option>
+                <option value="electric">electric</option>
+                <option value="psychic">psychic</option>
+                <option value="ice">ice</option>
+                <option value="dragon">dragon</option>
+                <option value="dark">dark</option>
+                <option value="fairy">fairy</option>
+            </select>
+        </div>
+        <div class="filter">
+            Region
+            <select name="pokemon-region" id="pokemon-region">
+                <option value="kanto">Kanto (1-151)</option>
+                <option value="johto">Johto (152-251)</option>
+                <option value="hoenn">Hoenn (252-386)</option>
+                <option value="sinnoh">Sinnoh (387-494)</option>
+                <option value="unova">Unova (495-649)</option>
+                <option value="kalos">Kalos (650-721)</option>
+                <option value="alola">Alola (722-809)</option>
+                <option value="galar">Galar (810-898)</option>
+            </select>
+        </div>
+        <div class="filter">Search by Name
+            <input type="text" id="name-input">
+            <button id="search-btn">Search</button>
+        </div>
+    </div>
+
     <main>
         <div id="left-col">
 

@@ -141,7 +141,7 @@ function addNewTypeTimelineEvent(pokemonType) {
                 console.log(`We have a total of ${typehitObject[`${pokemonType}`] + 1} search for type ${pokemonType}`)
                 let id = res._id;
                 $.ajax({
-                    type: "GET",
+                    type: "PUT",
                     url: `http://localhost:5000/timeline/incrementHits/${id}`,
                     success: (res) => {typehitObject[`${pokemonType}`] ++;}
                 })
@@ -168,7 +168,7 @@ function addNewRegionTimelineEvent(currentRegion) {
     }else{
         let id = regionidObject[`${currentRegion}`];
         $.ajax({
-            type: "GET",
+            type: "PUT",
             url: `http://localhost:5000/timeline/incrementHits/${id}`,
             success: (res) => {console.log(res)}
         })
@@ -193,7 +193,7 @@ function addNewNameTimelineEvent(nameInput) {
     }else {
         let id = nameidObject[`${nameInput}`];
         $.ajax({
-            type: "GET",
+            type: "PUT",
             url: `http://localhost:5000/timeline/incrementHits/${id}`,
             success: (res) => {console.log(res)}
         })

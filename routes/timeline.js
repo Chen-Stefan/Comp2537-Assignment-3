@@ -1,31 +1,80 @@
 const router = require("express").Router();
-// 创建一个timeline的route, 这样在server.js 里用 app.use 就可以从timeline route 下面分叉出好几个新的功能routes
+const Timeline = require("../models/Timeline");
+const {verifyToken, verifyTokenAuthorization, verifyTokenAndAdmin} = require("./verifyToken");
+
+// GET ALL TIMELINE EVENTS
 
 router.get('/getAllEvents', function(req, res) {
-    timelineModel.find({}, function(err, timelineData){
-        if (err){
-          console.log("Error " + err);
-        }else{
-          console.log("Data " + timelineData);
-        }
-        res.send(timelineData);
-    });
-  })
+  Timeline.find({}, function(err, timelineData){
+      if (err){
+        console.log("Error " + err);
+      }else{
+        console.log("Data " + timelineData);
+      }
+      res.send(timelineData);
+  });
+})
+
+// INSERT A NEW EVENT 
 
 router.put('/insert', function(req, res) {
-    timelineModel.create({
-        'text': req.body.text,
-        'hits': req.body.hits,
-        'time': req.body.time
-    }, function(err, timelineData){
-        if (err){
-          console.log("Error " + err);
-        }else{
-          console.log("Data " + timelineData);
-        }
-        res.send(timelineData);
-    });
-  })
+  Timeline.create({
+      'text': req.body.text,
+      'hits': req.body.hits,
+      'time': req.body.time
+  }, function(err, timelineData){
+      if (err){
+        console.log("Error " + err);
+      }else{
+        console.log("Data " + timelineData);
+      }
+      res.send(timelineData);
+  });
+})
+
+// UPDATE AN EVENT
+
+router.put('/incrementHits/:id', function(req, res) {
+  Timeline.updateOne({
+      '_id': req.params.id
+  }, {
+      $inc: {'hits': 1}
+  }, function(err, timelineData) {
+      if (err){
+        console.log("Error " + err);
+      }else{
+        console.log("Data " + timelineData);
+      }
+      res.send(`Increment hit of ID ${req.params.id} by 1!`);
+  });
+})
+
+// DELETE A SINGLE EVENT
+
+router.delete('/delete/:id', function(req, res) {
+  Timeline.deleteOne({
+      '_id': req.params.id
+  }, function(err, timelineData){
+      if (err){
+        console.log("Error " + err);
+      }else{
+        console.log("Data " + timelineData);
+      }
+      res.send(`Timeline Data of ID ${req.params.id} deleted!`);
+  });
+})
+
+// CLEAR ALL EVENTS
+
+router.delete('/deleteAllEvents', function(req, res) {
+  Timeline.deleteMany({}, function(err, timelineData){
+      if (err){
+        console.log("Error " + err);
+      }else{
+        console.log("Data " + timelineData);
+      }
+      res.send('All timeline events has been deleted from the database');
+  });
+})
   
- 
 module.exports = router;

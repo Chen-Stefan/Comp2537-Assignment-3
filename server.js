@@ -6,9 +6,9 @@ const bodyparser = require("body-parser");
 const https = require('https');       
 const mongoose = require('mongoose');
 const dotenv = require("dotenv");
-const timelineRoute = require('./routes/timeline');
 const authRoute = require('./routes/auth');
 const userRoute = require('./routes/user');
+const timelineRoute = require('./routes/timeline');
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public')); 
@@ -31,75 +31,7 @@ app.use(express.json());
 // app.use('/timeline', timelineRoute);
 app.use('/auth', authRoute);
 app.use('/user', userRoute);
-
-app.get('/timeline/getAllEvents', function(req, res) {
-  timelineModel.find({}, function(err, timelineData){
-      if (err){
-        console.log("Error " + err);
-      }else{
-        console.log("Data " + timelineData);
-      }
-      res.send(timelineData);
-  });
-})
-
-app.put('/timeline/insert', function(req, res) {
-  timelineModel.create({
-      'text': req.body.text,
-      'hits': req.body.hits,
-      'time': req.body.time
-  }, function(err, timelineData){
-      if (err){
-        console.log("Error " + err);
-      }else{
-        console.log("Data " + timelineData);
-      }
-      res.send(timelineData);
-  });
-})
-
-app.get('/timeline/delete/:id', function(req, res) {
-  timelineModel.deleteOne({
-      '_id': req.params.id
-  }, function(err, timelineData){
-      if (err){
-        console.log("Error " + err);
-      }else{
-        console.log("Data " + timelineData);
-      }
-      res.send(`Timeline Data of ID ${req.params.id} deleted!`);
-  });
-})
-
-app.get('/timeline/deleteAllEvents', function(req, res) {
-  timelineModel.deleteMany({}, function(err, timelineData){
-      if (err){
-        console.log("Error " + err);
-      }else{
-        console.log("Data " + timelineData);
-      }
-      res.send('All timeline events has been deleted from the database');
-  });
-})
-
-app.get('/timeline/incrementHits/:id', function(req, res) {
-  timelineModel.updateOne({
-      '_id': req.params.id
-  }, {
-      $inc: {'hits': 1}
-  }, function(err, timelineData) {
-      if (err){
-        console.log("Error " + err);
-      }else{
-        console.log("Data " + timelineData);
-      }
-      res.send(`Increment hit of ID ${req.params.id} by 1!`);
-  });
-})
-
-
-
-
+app.use('/timeline', timelineRoute);
 
 
 app.get('/profile/:id', function (req, res) {   

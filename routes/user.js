@@ -49,5 +49,6 @@ router.get('/find/:id', verifyTokenAndAdmin, async (req, res) => {
   }
 })
 
-
 module.exports = router;
+
+// GET ALL USERS

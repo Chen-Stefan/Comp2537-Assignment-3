@@ -25,7 +25,7 @@ function deleteSingleTimelineEvent() {
     $(this).parent().remove();
     let eventID = this.id
     $.ajax({
-        type: "GET",
+        type: "DELETE",
         url: `http://localhost:5000/timeline/delete/${eventID}`,
         success: (res) => {console.log(res)}
     })
@@ -34,7 +34,7 @@ function deleteSingleTimelineEvent() {
 function clearAllTimelineEvents() {
     $("#container").empty();
     $.ajax({
-        type: "GET",
+        type: "DELETE",
         url: `http://localhost:5000/timeline/deleteAllEvents`,
         success: (res) => {console.log(res)}
     })  
